@@ -12,7 +12,10 @@ const db = mysql.createConnection({
   database: "acme"
 });
 
-db.connect();
+db.connect(err => {
+  if (err) throw err;
+  console.log("MySQL connected....");
+});
 
 // App routes
 app.get("/users", (req, res) => {

@@ -1,8 +1,13 @@
 const express = require("express");
 const mysql = require("mysql");
+const bodyParser = require("body-parser");
 
 // Execute
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static("./public"));
 
 // Connect to database
 const db = mysql.createConnection({
@@ -18,6 +23,28 @@ db.connect(err => {
 });
 
 // App routes
+
+app.post("/users/create", (req, res) => {
+  console.log("Trying to create a new user...");
+
+  const data = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name
+  };
+
+  const sql = `
+    INSERT INTO users (first_name, last_name) VALUES ('${data.first_name}', '${
+    data.last_name
+  }');
+  `;
+
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    console.log("Inserted a new user with id: ", result.insertId);
+    res.end();
+  });
+});
+
 app.get("/users", (req, res) => {
   const sql = `
       SELECT

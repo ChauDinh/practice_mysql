@@ -9,7 +9,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "leslie",
   password: "katetsui1995",
-  database: "acme"
+  database: "mysql_crud"
 });
 
 db.connect(err => {
@@ -21,19 +21,39 @@ db.connect(err => {
 app.get("/users", (req, res) => {
   const sql = `
       SELECT
-      comments.body,
-      posts.title,
+      users.id,
       users.first_name,
       users.last_name
-      FROM comments
-      INNER JOIN posts on posts.id = comments.post_id
-      INNER JOIN users on users.id = comments.user_id
-      ORDER BY posts.title;
+      FROM users;
     `;
 
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
+  });
+});
+
+app.get("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  console.log("Fetching user with id: " + userId);
+  const sql = `
+    SELECT * FROM users WHERE id = ${userId};
+  `;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      res.sendStatus(500);
+      throw err;
+    }
+    res.send(
+      result.map(row => {
+        return {
+          userId: row.id,
+          firstName: row.first_name,
+          lastName: row.last_name
+        };
+      })
+    );
   });
 });
 

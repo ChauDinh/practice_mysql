@@ -20,4 +20,5 @@ app.get("/", (req, res) => {
 app.use("/users", userRoutes);
 
 // Port
-app.listen(process.env.PORT, () => console.log("Server starting..."));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log("Server starting on: " + PORT));

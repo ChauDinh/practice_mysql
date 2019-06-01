@@ -10,6 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static("./public"));
 
+// App routes
+app.get("/", (req, res) => {
+  console.log("responding to root route");
+  res.send("Hello, Chau Dinh");
+});
+
 // Users routes
 app.use("/users", userRoutes);
 

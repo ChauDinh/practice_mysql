@@ -14,4 +14,4 @@ app.use(express.static("./public"));
 app.use("/users", userRoutes);
 
 // Port
-app.listen(5000, () => console.log("Server starting..."));
+app.listen(process.env.PORT, () => console.log("Server starting..."));

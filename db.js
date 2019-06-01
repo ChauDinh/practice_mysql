@@ -3,10 +3,10 @@ const mysql = require("mysql");
 
 // Connect to database
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "leslie",
-  password: `${process.env.PASSWORD_DB}`,
-  database: "mysql_crud"
+  host: "us-cdbr-iron-east-02.cleardb.net",
+  user: "bfc9ad77a93f71",
+  password: "1e466d4c",
+  database: "heroku_9d752f9c95feb4d"
 });
 
 db.connect(err => {

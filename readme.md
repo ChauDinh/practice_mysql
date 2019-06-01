@@ -2,7 +2,9 @@
 
 ## What we will cover?
 
-### Deploy to Heroku
+### 1. Deploy to Heroku
+
+<hr>
 
 Here are things need to be done before we deploy our app to Heroku
 

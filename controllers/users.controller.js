@@ -9,25 +9,25 @@ module.exports.getUser = (req, res) => {
       FROM users;
     `;
 
-  db.query(sql, (err, result) => {
+  db.query(sql, async (err, result) => {
     if (err) throw err;
-    res.send(result);
+    await res.send(result);
   });
 };
 
-module.exports.getUserById = (req, res) => {
+module.exports.getUserById = async (req, res) => {
   const userId = req.params.id;
-  console.log("Fetching user with id: " + userId);
+  await console.log("Fetching user with id: " + userId);
   const sql = `
     SELECT * FROM users WHERE id = ${userId};
   `;
 
-  db.query(sql, (err, result) => {
+  db.query(sql, async (err, result) => {
     if (err) {
-      res.sendStatus(500);
+      await res.sendStatus(500);
       throw err;
     }
-    res.send(
+    await res.send(
       result.map(row => {
         return {
           userId: row.id,
@@ -39,7 +39,7 @@ module.exports.getUserById = (req, res) => {
   });
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = async (req, res) => {
   console.log("Trying to create a new user...");
 
   const data = {
@@ -53,9 +53,9 @@ module.exports.createUser = (req, res) => {
   }');
   `;
 
-  db.query(sql, (err, result) => {
+  db.query(sql, async (err, result) => {
     if (err) throw err;
     console.log("Inserted a new user with id: ", result.insertId);
-    res.redirect("/users");
+    await res.redirect("/users");
   });
 };

@@ -11,9 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("./public"));
 
 // App routes
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   console.log("responding to root route");
-  res.send("Hello, Chau Dinh");
+  await res.send("Hello, Chau Dinh");
 });
 
 // Users routes
